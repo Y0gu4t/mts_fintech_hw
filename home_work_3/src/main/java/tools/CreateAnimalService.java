@@ -21,7 +21,7 @@ public interface CreateAnimalService {
         List<String> animalTypeList = Arrays.asList("fox", "cat", "fish", "bear");
         int i = 0;
         Random random = new Random();
-        while (i <= 10) {
+        while (i < 10) {
             Animal animal = null;
             String animalType = animalTypeList.get(random.nextInt(animalTypeList.size()));
             String breed = "Breed#" + random.nextInt();
