@@ -1,9 +1,7 @@
 package tools;
 
-import agents.*;
+import agents.Animal;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -11,45 +9,36 @@ import java.util.Random;
 public class CreateAnimalServiceImpl implements CreateAnimalService {
 
     @Override
-    public void createUniqueAnimals() {
+    public Animal[] createUniqueAnimals() {
+        Animal[] animals = new Animal[10];
+        AnimalFactory animalFactory = new AnimalFactory();
+        List<String> animalTypeList = Arrays.asList("fox", "cat", "fish", "bear");
+        Random random = new Random();
         int i = 0;
         do {
-            Animal animal = createUniqueAnimal();
+            String animalType = animalTypeList.get(random.nextInt(animalTypeList.size()));
+            animals[i] = animalFactory.createAnimal(animalType);
+            System.out.println(animals[i]);
             i++;
-            System.out.println(animal);
         } while (i < 10);
+        return animals;
     }
 
     @Override
-    public void createUniqueAnimals(int animalCount) {
+    public Animal[] createUniqueAnimals(int animalCount) {
+        Animal[] animals = new Animal[animalCount];
+        AnimalFactory animalFactory = new AnimalFactory();
+        List<String> animalTypeList = Arrays.asList("fox", "cat", "fish", "bear");
+        Random random = new Random();
         for (int i = 0; i < animalCount; i++) {
-            Animal animal = createUniqueAnimal();
-            System.out.println(animal);
+            String animalType = animalTypeList.get(random.nextInt(animalTypeList.size()));
+            animals[i] = animalFactory.createAnimal(animalType);
+            System.out.println(animals[i]);
         }
+        return animals;
     }
 
     public void defaultCreateUniqueAnimals() {
         CreateAnimalService.super.createUniqueAnimals();
-    }
-
-    private Animal createUniqueAnimal() {
-        List<String> animalTypeList = Arrays.asList("fox", "cat", "fish", "bear");
-        Random random = new Random();
-        String animalType = animalTypeList.get(random.nextInt(animalTypeList.size()));
-        String breed = "Breed#" + random.nextInt();
-        String name = "Name#" + random.nextInt();
-        String character = "Character#" + random.nextInt();
-        BigDecimal cost = BigDecimal.valueOf(random.nextDouble()).setScale(2, RoundingMode.HALF_UP);
-        switch (animalType) {
-            case "fox":
-                return new Fox(breed, name, cost, character);
-            case "cat":
-                return new Cat(breed, name, cost, character);
-            case "fish":
-                return new Fish(breed, name, cost, character);
-            case "bear":
-                return new Bear(breed, name, cost, character);
-        }
-        return null;
     }
 }

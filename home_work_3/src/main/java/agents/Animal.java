@@ -1,6 +1,7 @@
 package agents;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public interface Animal {
 
@@ -31,8 +32,16 @@ public interface Animal {
     /**
      * Returns the character of the animal.
      *
-     * @return the cost of the animal
+     * @return the character of the animal
      * @author y0gu4t
      */
     public String getCharacter();
+
+    /**
+     * Returns the birthday of the animal.
+     *
+     * @return the birthday of the animal
+     * @author y0gu4t
+     */
+    public LocalDate getBirthDate();
 }

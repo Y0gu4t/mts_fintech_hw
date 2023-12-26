@@ -17,34 +17,19 @@ public interface CreateAnimalService {
      *
      * @author y0gu4t
      */
-    default void createUniqueAnimals() {
+    default Animal[] createUniqueAnimals() {
+        Animal[] animals = new Animal[10];
+        AnimalFactory animalFactory = new AnimalFactory();
         List<String> animalTypeList = Arrays.asList("fox", "cat", "fish", "bear");
-        int i = 0;
         Random random = new Random();
+        int i = 0;
         while (i < 10) {
-            Animal animal = null;
             String animalType = animalTypeList.get(random.nextInt(animalTypeList.size()));
-            String breed = "Breed#" + random.nextInt();
-            String name = "Name#" + random.nextInt();
-            String character = "Character#" + random.nextInt();
-            BigDecimal cost = BigDecimal.valueOf(random.nextDouble()).setScale(2, RoundingMode.HALF_UP);
-            switch (animalType) {
-                case "fox":
-                    animal = new Fox(breed, name, cost, character);
-                    break;
-                case "cat":
-                    animal = new Cat(breed, name, cost, character);
-                    break;
-                case "fish":
-                    animal = new Fish(breed, name, cost, character);
-                    break;
-                case "bear":
-                    animal = new Bear(breed, name, cost, character);
-                    break;
-            }
+            animals[i] = animalFactory.createAnimal(animalType);
+            System.out.println(animals[i]);
             i++;
-            System.out.println(animal);
         }
+        return animals;
     }
 
     /**
@@ -56,5 +41,5 @@ public interface CreateAnimalService {
      * @param animalCount number of animals that will be created
      * @author y0gu4t
      */
-    void createUniqueAnimals(int animalCount);
+    Animal[] createUniqueAnimals(int animalCount);
 }

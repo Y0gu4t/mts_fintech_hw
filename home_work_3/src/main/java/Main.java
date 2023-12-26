@@ -1,5 +1,8 @@
+import agents.Animal;
 import tools.CreateAnimalService;
 import tools.CreateAnimalServiceImpl;
+import tools.SearchService;
+import tools.SearchServiceImpl;
 
 import java.util.List;
 
@@ -7,11 +10,20 @@ public class Main {
     public static void main(String[] args) {
         CreateAnimalService createAnimalService = new CreateAnimalServiceImpl();
         CreateAnimalServiceImpl createAnimalServiceImpl = new CreateAnimalServiceImpl();
-        System.out.println("\n\nВызов default метода:\n");
-        createAnimalServiceImpl.defaultCreateUniqueAnimals();
-        System.out.println("\n\nВызов переопределенного метода:\n");
-        createAnimalService.createUniqueAnimals();
-        System.out.println("\n\nВызов перегруженного метода:\n");
-        createAnimalService.createUniqueAnimals(5);
+        SearchService searchService = new SearchServiceImpl();
+        Animal[] animals = createAnimalService.createUniqueAnimals(20);
+        String[] leapYearNames = searchService.findLeapYearNames(animals);
+        Animal[] olderAnimals = searchService.findOlderAnimal(animals, 5);
+        searchService.findDuplicate(animals);
+        System.out.println("\nЖивотные, которые родились в високостный год:\n");
+        for (String name:
+             leapYearNames) {
+            System.out.println(name);
+        }
+        System.out.println("\nЖивотные, которые старше 5 лет\n");
+        for (Animal animal:
+             olderAnimals) {
+            System.out.println(animal);
+        }
     }
 }
