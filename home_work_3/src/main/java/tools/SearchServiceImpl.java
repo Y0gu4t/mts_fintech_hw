@@ -5,6 +5,7 @@ import agents.Animal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class SearchServiceImpl implements SearchService {
     @Override
@@ -23,7 +24,7 @@ public class SearchServiceImpl implements SearchService {
     public Animal[] findOlderAnimal(Animal[] animals, int years) {
         List<Animal> olderAnimals = new ArrayList<>();
         for (int i = 0; i < animals.length; i++) {
-            if (LocalDate.now().getYear() - animals[i].getBirthDate().getYear() > years) {
+            if (LocalDate.now().minusYears(years).isAfter(animals[i].getBirthDate())) {
                 olderAnimals.add(animals[i]);
             }
         }
