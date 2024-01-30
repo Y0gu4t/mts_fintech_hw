@@ -5,7 +5,6 @@ import agents.Animal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class SearchServiceImpl implements SearchService {
     @Override
@@ -32,14 +31,23 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public void findDuplicate(Animal[] animals) {
-        System.out.println("\nДубликаты животных:\n");
+    public List<Animal> findDuplicate(Animal[] animals) {
+        List<Animal> duplicateAnimal = new ArrayList<>();
         for (int i = 0; i < animals.length; i++) {
-            for (int j = i+1; j < animals.length; j++){
-                if(animals[i].equals(animals[j])){
-                    System.out.println(animals[i]);
+            for (int j = i + 1; j < animals.length; j++) {
+                if (animals[i].equals(animals[j])) {
+                    duplicateAnimal.add(animals[i]);
                 }
             }
+        }
+        return duplicateAnimal;
+    }
+
+    @Override
+    public void printDuplicate(Animal[] animals) {
+        System.out.println("\nДубликаты животных:\n");
+        for (Animal animal: findDuplicate(animals)) {
+            System.out.println(animal);
         }
     }
 }

@@ -14,7 +14,7 @@ public class Main {
         Animal[] animals = createAnimalService.createUniqueAnimals(20);
         String[] leapYearNames = searchService.findLeapYearNames(animals);
         Animal[] olderAnimals = searchService.findOlderAnimal(animals, 5);
-        searchService.findDuplicate(animals);
+        searchService.printDuplicate(animals);
         System.out.println("\nЖивотные, которые родились в високостный год:\n");
         for (String name:
              leapYearNames) {

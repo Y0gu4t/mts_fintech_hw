@@ -2,6 +2,8 @@ package tools;
 
 import agents.Animal;
 
+import java.util.List;
+
 public interface SearchService {
     /**
      * An array of animals is presented at the entrance. The method returns an array of names of animals that were born in a leap year.
@@ -19,8 +21,15 @@ public interface SearchService {
     Animal[] findOlderAnimal(Animal[] animals, int years);
 
     /**
-     * An array of animals is presented at the entrance. The method displays duplicate animals to the console.
+     * An array of animals is presented at the entrance. The method returns duplicate animals.
+     * @param animals
+     * @return animals
+     * */
+    List<Animal> findDuplicate(Animal[] animals);
+
+    /**
+     * An array of animals is presented at the entrance. The method print duplicate animals to console.
      * @param animals
      * */
-    void findDuplicate(Animal[] animals);
+    void printDuplicate(Animal[] animals);
 }
