@@ -1,13 +1,13 @@
 package tools;
 
-import agents.*;
+import agents.Animal;
+import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+@Service
 public interface CreateAnimalService {
     /**
      * Creates unique animals and prints created animal's information (breed, name, cost and character).

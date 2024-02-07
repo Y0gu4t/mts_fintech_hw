@@ -1,28 +1,25 @@
 import agents.Animal;
-import tools.CreateAnimalService;
-import tools.CreateAnimalServiceImpl;
-import tools.SearchService;
-import tools.SearchServiceImpl;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import tools.AnimalRepository;
 
-import java.util.List;
-
+@ComponentScan("tools")
 public class Main {
     public static void main(String[] args) {
-        CreateAnimalService createAnimalService = new CreateAnimalServiceImpl();
-        CreateAnimalServiceImpl createAnimalServiceImpl = new CreateAnimalServiceImpl();
-        SearchService searchService = new SearchServiceImpl();
-        Animal[] animals = createAnimalService.createUniqueAnimals(20);
-        String[] leapYearNames = searchService.findLeapYearNames(animals);
-        Animal[] olderAnimals = searchService.findOlderAnimal(animals, 5);
-        searchService.printDuplicate(animals);
+        ApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
+
+        AnimalRepository animalRepository = context.getBean(AnimalRepository.class);
+
+        animalRepository.printDuplicate();
         System.out.println("\nЖивотные, которые родились в високостный год:\n");
-        for (String name:
-             leapYearNames) {
+        for (String name :
+                animalRepository.findLeapYearNames()) {
             System.out.println(name);
         }
         System.out.println("\nЖивотные, которые старше 5 лет\n");
-        for (Animal animal:
-             olderAnimals) {
+        for (Animal animal :
+                animalRepository.findOlderAnimal(5)) {
             System.out.println(animal);
         }
     }

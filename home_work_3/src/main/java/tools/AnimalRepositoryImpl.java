@@ -1,14 +1,29 @@
 package tools;
 
 import agents.Animal;
+import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchServiceImpl implements SearchService {
+@Repository
+public class AnimalRepositoryImpl implements AnimalRepository {
+    CreateAnimalService createAnimalService;
+    private Animal[] animals;
+
+    public AnimalRepositoryImpl() {
+        createAnimalService = new CreateAnimalServiceImpl();
+    }
+
+    @PostConstruct
+    public void createAnimals() {
+        animals = createAnimalService.createUniqueAnimals();
+    }
+
     @Override
-    public String[] findLeapYearNames(Animal[] animals) {
+    public String[] findLeapYearNames() {
         List<String> leapYearNames = new ArrayList<>();
         for (Animal animal : animals) {
             int year = animal.getBirthDate().getYear();
@@ -20,7 +35,7 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public Animal[] findOlderAnimal(Animal[] animals, int years) {
+    public Animal[] findOlderAnimal(int years) {
         List<Animal> olderAnimals = new ArrayList<>();
         for (int i = 0; i < animals.length; i++) {
             if (LocalDate.now().minusYears(years).isAfter(animals[i].getBirthDate())) {
@@ -31,7 +46,7 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public List<Animal> findDuplicate(Animal[] animals) {
+    public List<Animal> findDuplicate() {
         List<Animal> duplicateAnimal = new ArrayList<>();
         for (int i = 0; i < animals.length; i++) {
             for (int j = i + 1; j < animals.length; j++) {
@@ -44,9 +59,9 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public void printDuplicate(Animal[] animals) {
+    public void printDuplicate() {
         System.out.println("\nДубликаты животных:\n");
-        for (Animal animal: findDuplicate(animals)) {
+        for (Animal animal : findDuplicate()) {
             System.out.println(animal);
         }
     }

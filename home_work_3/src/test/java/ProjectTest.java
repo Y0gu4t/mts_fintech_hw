@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import tools.SearchService;
-import tools.SearchServiceImpl;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
