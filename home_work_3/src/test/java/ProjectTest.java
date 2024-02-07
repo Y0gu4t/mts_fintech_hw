@@ -2,7 +2,6 @@ import agents.Animal;
 import agents.Bear;
 import agents.Cat;
 import agents.Fox;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -20,41 +19,38 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class ProjectTest {
-    private static Animal bear;
-    private static SearchService searchService;
-
-    @BeforeAll
-    public static void createAnimal() {
-        bear = new Bear("breed#1", "name#1", BigDecimal.valueOf(1.0), "character#1", LocalDate.of(2023, 1, 1));
-        searchService = new SearchServiceImpl();
-    }
-
     @Nested
     public class AnimalTest {
+        private Animal bear;
+
+        public AnimalTest() {
+            bear = new Bear("breed#1", "name#1", BigDecimal.valueOf(1.0), "character#1", LocalDate.of(2023, 1, 1));
+        }
+
         @Test
         @DisplayName("Animal and clone equality test")
-        public void checkAnimalCloneEqualsMethod() {
+        public void testAnimalCloneEqualsMethod() {
             Animal cloneBear = bear;
             assertEquals(cloneBear, bear, "Bear clone is not equal to bear");
         }
 
         @Test
         @DisplayName("Similar animals equality test")
-        public void checkSimilarAnimalsEqualsMethod() {
+        public void testSimilarAnimalsEqualsMethod() {
             Bear similarAnimal = new Bear("breed#1", "name#1", BigDecimal.valueOf(2.0), "character#1", LocalDate.of(2022, 2, 2));
             assertEquals(similarAnimal, bear, "Similar bears are equal");
         }
 
         @Test
         @DisplayName("Not Similar animals equality test")
-        public void checkNotSimilarAnimalsEqualsMethod() {
+        public void testNotSimilarAnimalsEqualsMethod() {
             Bear notSimilarBear = new Bear("breed#1", "name#2", BigDecimal.valueOf(2.0), "character#1", LocalDate.of(2022, 2, 2));
             assertNotEquals(notSimilarBear, bear, "Not Similar bears are not equal");
         }
 
         @Test
         @DisplayName("Other animals equality test")
-        public void checkOtherAnimalEqualsMethod() {
+        public void testOtherAnimalEqualsMethod() {
             Bear bear1 = new Bear("breed#1", "name#1", BigDecimal.valueOf(1.0), "character#1", LocalDate.of(2023, 1, 1));
             Cat cat1 = new Cat("breed#1", "name#1", BigDecimal.valueOf(1.0), "character#1", LocalDate.of(2023, 1, 1));
             assertNotEquals(bear1, cat1, "Bear and other animal are equal");
@@ -64,9 +60,15 @@ public class ProjectTest {
 
     @Nested
     public class SearchServiceTest {
+        private SearchService searchService;
+
+        public SearchServiceTest() {
+            searchService = new SearchServiceImpl();
+        }
+
         @Test
         @DisplayName("Leap year % 100 != 0 test")
-        public void checkLeapYearNotEqual100() {
+        public void testLeapYearNotEqual100() {
             Animal[] animals = new Animal[1];
             animals[0] = new Bear("breed#1", "name#1", BigDecimal.valueOf(1.0), "character#1", LocalDate.of(4, 1, 1));
             String[] names = searchService.findLeapYearNames(animals);
@@ -76,7 +78,7 @@ public class ProjectTest {
 
         @Test
         @DisplayName("Leap year % 100 == 0 test")
-        public void checkLeapYearEqual100() {
+        public void testLeapYearEqual100() {
             Animal[] animals = new Animal[1];
             animals[0] = new Bear("breed#1", "name#1", BigDecimal.valueOf(1.0), "character#1", LocalDate.of(100, 1, 1));
             String[] names = searchService.findLeapYearNames(animals);
@@ -85,7 +87,7 @@ public class ProjectTest {
 
         @Test
         @DisplayName("Leap year % 400 == 0 test")
-        public void checkLeapYearEqual400() {
+        public void testLeapYearEqual400() {
             Animal[] animals = new Animal[1];
             animals[0] = new Bear("breed#1", "name#1", BigDecimal.valueOf(1.0), "character#1", LocalDate.of(400, 1, 1));
             String[] names = searchService.findLeapYearNames(animals);
@@ -95,7 +97,7 @@ public class ProjectTest {
 
         @Test
         @DisplayName("Leap year % 400 != 0 test")
-        public void checkLeapYearNotEqual400() {
+        public void testLeapYearNotEqual400() {
             Animal[] animals = new Animal[1];
             animals[0] = new Bear("breed#1", "name#1", BigDecimal.valueOf(1.0), "character#1", LocalDate.of(300, 1, 1));
             String[] names = searchService.findLeapYearNames(animals);
@@ -104,7 +106,7 @@ public class ProjectTest {
 
         @Test
         @DisplayName("Leap and not leap years test")
-        public void checkLeapAndNotLeapYears() {
+        public void testLeapAndNotLeapYears() {
             Animal[] animals = new Animal[2];
             animals[0] = new Bear("breed#1", "name#1", BigDecimal.valueOf(1.0), "character#1", LocalDate.of(1, 1, 1));
             animals[1] = new Fox("breed#1", "name#2", BigDecimal.valueOf(1.0), "character#1", LocalDate.of(4, 1, 1));
@@ -115,7 +117,7 @@ public class ProjectTest {
 
         @Test
         @DisplayName("Two leap years test")
-        public void checkTwoLeapYears() {
+        public void testTwoLeapYears() {
             Animal[] animals = new Animal[2];
             animals[0] = new Bear("breed#1", "name#1", BigDecimal.valueOf(1.0), "character#1", LocalDate.of(4, 1, 1));
             animals[1] = new Fox("breed#1", "name#2", BigDecimal.valueOf(1.0), "character#1", LocalDate.of(4, 1, 1));
@@ -126,7 +128,7 @@ public class ProjectTest {
         @ParameterizedTest(name = "Try to test with year {arguments}")
         @ValueSource(ints = {1, 2, 5})
         @DisplayName("Correct identification of old animals test")
-        public void checkFindOlderAnimalsMethod(int year) {
+        public void testFindOlderAnimalsMethod(int year) {
             Animal[] animals = new Animal[2];
             animals[0] = new Bear("breed#1", "name#1", BigDecimal.valueOf(1.0), "character#1", LocalDate.of(2019, 1, 1));
             animals[1] = new Fox("breed#1", "name#2", BigDecimal.valueOf(1.0), "character#1", LocalDate.of(2024, 1, 1));
@@ -137,9 +139,10 @@ public class ProjectTest {
 
         @Test
         @DisplayName("Bear and Fox duplicate test")
-        public void checkNotDuplicateOtherAnimals() {
+        public void testNotDuplicateOtherAnimals() {
             Animal[] animals = new Animal[2];
             Animal fox = new Fox("breed#1", "name#1", BigDecimal.valueOf(1.0), "character#1", LocalDate.of(2024, 1, 1));
+            Animal bear = new Bear("breed#1", "name#1", BigDecimal.valueOf(1.0), "character#1", LocalDate.of(2023, 1, 1));
             animals[0] = bear;
             animals[1] = fox;
             List<Animal> duplicatesAnimals = searchService.findDuplicate(animals);
@@ -149,8 +152,9 @@ public class ProjectTest {
         @ParameterizedTest(name = "Try with {arguments} duplicates")
         @ValueSource(ints = {2, 3, 4})
         @DisplayName("Similar animals duplicate test")
-        public void checkTwoDuplicateOtherAnimals(int value) {
+        public void testTwoDuplicateOtherAnimals(int value) {
             Animal[] animals = new Animal[value];
+            Animal bear = new Bear("breed#1", "name#1", BigDecimal.valueOf(1.0), "character#1", LocalDate.of(2023, 1, 1));
             Arrays.fill(animals, bear);
             List<Animal> duplicatesAnimals = searchService.findDuplicate(animals);
             assertEquals(duplicatesAnimals.size(), value * (value - 1) / 2, "Incorrect array of duplicate animals size");
