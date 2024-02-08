@@ -14,6 +14,14 @@ public class CreateAnimalServiceImpl implements CreateAnimalService {
     private String animalType;
 
     @Override
+    public Animal createUniqueAnimal() {
+        AnimalFactory animalFactory = new AnimalFactory();
+        Animal animal = animalFactory.createAnimal(animalType);
+        System.out.println(animal);
+        return animal;
+    }
+
+    @Override
     public Animal[] createUniqueAnimals() {
         Animal[] animals = new Animal[10];
         AnimalFactory animalFactory = new AnimalFactory();

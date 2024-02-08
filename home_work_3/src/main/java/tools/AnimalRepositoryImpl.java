@@ -1,6 +1,7 @@
 package tools;
 
 import agents.Animal;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
@@ -10,16 +11,16 @@ import java.util.List;
 
 @Repository
 public class AnimalRepositoryImpl implements AnimalRepository {
-    CreateAnimalService createAnimalService;
+    @Autowired
+    AnimalConfiguration animalConfiguration;
     private Animal[] animals;
-
-    public AnimalRepositoryImpl() {
-        createAnimalService = new CreateAnimalServiceImpl();
-    }
 
     @PostConstruct
     public void createAnimals() {
-        animals = createAnimalService.createUniqueAnimals();
+        animals = new Animal[10];
+        for (int i = 0; i < animals.length; i++) {
+            animals[i] = animalConfiguration.createAnimalService().createUniqueAnimal();
+        }
     }
 
     @Override

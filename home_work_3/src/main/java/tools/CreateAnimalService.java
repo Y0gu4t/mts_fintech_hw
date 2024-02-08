@@ -33,6 +33,16 @@ public interface CreateAnimalService {
     }
 
     /**
+     * Creates unique animal and prints created animal's information (breed, name, cost and character).
+     * The animal type is determined randomly from the list of animal types.
+     * String attributes are defined as "attribute name" plus a random index.
+     * The cost of the animal is determined using a random double value, which is scaled to 2 decimal places.
+     *
+     * @author y0gu4t
+     */
+    Animal createUniqueAnimal();
+
+    /**
      * Creates unique animals and prints created animal's information (breed, name, cost and character).
      * The animal type is determined randomly from the list of animal types.
      * String attributes are defined as "attribute name" plus a random index.
