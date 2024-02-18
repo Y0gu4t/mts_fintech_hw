@@ -1,15 +1,11 @@
 package tools;
 
 import agents.Animal;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-@Service
-@Primary
 public class CreateAnimalServiceImpl implements CreateAnimalService {
     private String animalType;
 

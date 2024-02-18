@@ -1,19 +1,19 @@
 package tools;
 
 import agents.Animal;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
 public class AnimalRepositoryImpl implements AnimalRepository {
-    @Autowired
     AnimalConfiguration animalConfiguration;
     private Animal[] animals;
+
+    AnimalRepositoryImpl(AnimalConfiguration animalConfiguration) {
+        this.animalConfiguration = animalConfiguration;
+    }
 
     @PostConstruct
     public void createAnimals() {

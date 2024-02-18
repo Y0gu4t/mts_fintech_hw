@@ -7,7 +7,12 @@ import org.springframework.context.annotation.Scope;
 @Configuration
 public class AnimalConfiguration {
     @Bean
-    @Scope(value = "prototype")
+    public AnimalRepository animalRepository() {
+        return new AnimalRepositoryImpl(this);
+    }
+
+    @Bean
+    @Scope(scopeName = "prototype")
     public CreateAnimalService createAnimalService() {
         return new CreateAnimalServiceImpl();
     }
