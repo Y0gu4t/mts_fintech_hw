@@ -1,6 +1,7 @@
 package tools;
 
 import agents.Animal;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
@@ -8,18 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AnimalRepositoryImpl implements AnimalRepository {
-    AnimalConfiguration animalConfiguration;
+    CreateAnimalService createAnimalService;
     private Animal[] animals;
 
-    AnimalRepositoryImpl(AnimalConfiguration animalConfiguration) {
-        this.animalConfiguration = animalConfiguration;
+    AnimalRepositoryImpl(CreateAnimalService createAnimalService) {
+        this.createAnimalService = createAnimalService;
     }
 
     @PostConstruct
     public void createAnimals() {
         animals = new Animal[10];
         for (int i = 0; i < animals.length; i++) {
-            animals[i] = animalConfiguration.createAnimalService().createUniqueAnimal();
+            animals[i] = createAnimalService.createUniqueAnimal();
         }
     }
 

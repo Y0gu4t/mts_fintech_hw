@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
 
-        AnimalRepository animalRepository = (AnimalRepository) context.getBean("animalRepository");
+        AnimalRepository animalRepository = context.getBean(AnimalRepository.class);
 
         animalRepository.printDuplicate();
         System.out.println("\nЖивотные, которые родились в високостный год:\n");
