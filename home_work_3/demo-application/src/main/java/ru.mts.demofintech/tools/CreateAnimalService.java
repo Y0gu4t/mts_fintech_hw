@@ -1,13 +1,11 @@
 package ru.mts.demofintech.tools;
 
-import org.springframework.stereotype.Service;
 import ru.mts.demofintech.agents.Animal;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-@Service
 public interface CreateAnimalService {
     /**
      * Creates unique animals and prints created animal's information (breed, name, cost and character).

@@ -1,7 +1,5 @@
 package ru.mts.demofintech.tools;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import ru.mts.demofintech.agents.Animal;
 
 import javax.annotation.PostConstruct;
@@ -9,18 +7,20 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
 public class AnimalRepositoryImpl implements AnimalRepository {
-    @Autowired
-    AnimalConfiguration animalConfiguration;
+    CreateAnimalService createAnimalService;
     private Animal[] animals;
+
+    public AnimalRepositoryImpl(CreateAnimalService createAnimalService) {
+        this.createAnimalService = createAnimalService;
+    }
 
     @PostConstruct
     public void createAnimals() {
         animals = new Animal[20];
         System.out.println();
         for (int i = 0; i < animals.length; i++) {
-            animals[i] = animalConfiguration.createAnimalService().createUniqueAnimal();
+            animals[i] = createAnimalService.createUniqueAnimal();
         }
         System.out.println();
     }
@@ -67,5 +67,9 @@ public class AnimalRepositoryImpl implements AnimalRepository {
         for (Animal animal : findDuplicate()) {
             System.out.println(animal);
         }
+    }
+
+    public Animal[] getAnimals() {
+        return animals;
     }
 }

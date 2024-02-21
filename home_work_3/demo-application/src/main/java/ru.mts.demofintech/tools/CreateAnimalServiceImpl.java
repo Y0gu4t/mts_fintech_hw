@@ -1,8 +1,5 @@
 package ru.mts.demofintech.tools;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
 import ru.mts.demofintech.AnimalConfig;
 import ru.mts.demofintech.agents.Animal;
 
@@ -10,12 +7,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-@Service
-@Primary
 public class CreateAnimalServiceImpl implements CreateAnimalService {
-    @Autowired
     private AnimalConfig animalConfig;
     private String animalType;
+
+    public CreateAnimalServiceImpl(AnimalConfig animalConfig) {
+        this.animalConfig = animalConfig;
+    }
 
     @Override
     public Animal createUniqueAnimal() {
