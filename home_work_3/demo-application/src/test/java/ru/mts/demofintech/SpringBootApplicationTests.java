@@ -12,9 +12,12 @@ import ru.mts.demofintech.tools.AnimalTypeBeanPostProcessor;
 import ru.mts.demofintech.tools.CreateAnimalService;
 import ru.mts.demofintech.tools.CreateAnimalServiceImpl;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Map;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = {AnimalRepositoryTestConfiguration.class})
 @ActiveProfiles("test")
@@ -38,8 +41,23 @@ public class SpringBootApplicationTests {
     @Test
     @DisplayName("The findOlderAnimal method with the parameter 0 test")
     public void testFindOlderAnimalMethodWithParameter0() {
-        Animal[] animals = animalRepository.findOlderAnimal(0);
-        assertArrayEquals(animals, animalRepository.getAnimals());
+        Map<Animal, Integer> olderAnimalMap = animalRepository.findOlderAnimal(0);
+        assertTrue(animalRepository.getAnimals().containsAll(olderAnimalMap.keySet()));
+    }
+
+    @Test
+    @DisplayName("The findOlderAnimal method when there are no animals older than a given age test")
+    public void testNoOlderAnimal() {
+        int greatestAge = 0;
+        for (Animal animal: animalRepository.getAnimals()) {
+            int animalAge = Period.between(animal.getBirthDate(),LocalDate.now()).getYears();
+            if (animalAge > greatestAge) {
+                greatestAge = animalAge;
+            }
+        }
+        Map<Animal, Integer> animalMap = animalRepository.findOlderAnimal(1000);
+        assertEquals(animalMap.size(), 1);
+        assertTrue(animalMap.containsValue(greatestAge));
     }
     
     @Test

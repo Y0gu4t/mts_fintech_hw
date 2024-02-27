@@ -42,13 +42,13 @@ public class AnimalFactory {
                 random.nextInt(28) + 1);
         BigDecimal cost = BigDecimal.valueOf(random.nextDouble()).setScale(2, RoundingMode.HALF_UP);
         switch (type) {
-            case "fox":
+            case "Fox":
                 return new Fox(breed, name, cost, character, birthDate);
-            case "cat":
+            case "Cat":
                 return new Cat(breed, name, cost, character, birthDate);
-            case "fish":
+            case "Fish":
                 return new Fish(breed, name, cost, character, birthDate);
-            case "bear":
+            case "Bear":
                 return new Bear(breed, name, cost, character, birthDate);
         }
         return null;

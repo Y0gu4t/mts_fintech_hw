@@ -4,72 +4,87 @@ import ru.mts.demofintech.agents.Animal;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AnimalRepositoryImpl implements AnimalRepository {
     CreateAnimalService createAnimalService;
-    private Animal[] animals;
+    private final List<Animal> animals;
 
     public AnimalRepositoryImpl(CreateAnimalService createAnimalService) {
         this.createAnimalService = createAnimalService;
+        animals = new ArrayList<>();
     }
 
     @PostConstruct
     public void createAnimals() {
-        animals = new Animal[20];
         System.out.println();
-        for (int i = 0; i < animals.length; i++) {
-            animals[i] = createAnimalService.createUniqueAnimal();
+        for (int i = 0; i < 20; i++) {
+            animals.add(createAnimalService.createUniqueAnimal());
         }
         System.out.println();
     }
 
     @Override
-    public String[] findLeapYearNames() {
-        List<String> leapYearNames = new ArrayList<>();
+    public Map<String, LocalDate> findLeapYearNames() {
+        Map<String, LocalDate> leapYearMap = new HashMap<>();
         for (Animal animal : animals) {
             int year = animal.getBirthDate().getYear();
             if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) {
-                leapYearNames.add(animal.getName());
+                leapYearMap.put(String.format("%s %s", animal.getType(), animal.getName()),animal.getBirthDate());
             }
         }
-        return leapYearNames.toArray(new String[0]);
+        return leapYearMap;
     }
 
     @Override
-    public Animal[] findOlderAnimal(int years) {
-        List<Animal> olderAnimals = new ArrayList<>();
-        for (int i = 0; i < animals.length; i++) {
-            if (LocalDate.now().minusYears(years).isAfter(animals[i].getBirthDate())) {
-                olderAnimals.add(animals[i]);
+    public Map<Animal, Integer> findOlderAnimal(int years) {
+        Map<Animal, Integer> olderAnimalMap = new HashMap<>();
+        Animal oldestAnimal = animals.get(0);
+        for (Animal animal : animals) {
+            if (LocalDate.now().minusYears(years).isAfter(animal.getBirthDate())) {
+                Integer animalYears = Period.between(animal.getBirthDate(), LocalDate.now()).getYears();
+                olderAnimalMap.put(animal, animalYears);
+            } else if (animal.getBirthDate().isBefore(oldestAnimal.getBirthDate())) {
+                oldestAnimal = animal;
             }
         }
-        return olderAnimals.toArray(new Animal[0]);
+        if (olderAnimalMap.isEmpty()) {
+            Integer animalYears = Period.between(oldestAnimal.getBirthDate(), LocalDate.now()).getYears();
+            return Map.of(oldestAnimal, animalYears);
+        }
+        return olderAnimalMap;
     }
 
     @Override
-    public List<Animal> findDuplicate() {
-        List<Animal> duplicateAnimal = new ArrayList<>();
-        for (int i = 0; i < animals.length; i++) {
-            for (int j = i + 1; j < animals.length; j++) {
-                if (animals[i].equals(animals[j])) {
-                    duplicateAnimal.add(animals[i]);
+    public Map<String, Integer> findDuplicate() {
+        Map<String, Integer> duplicateAnimalMap = new HashMap<>();
+        for (int i = 0; i < animals.size(); i++) {
+            for (int j = i + 1; j < animals.size(); j++) {
+                if (animals.get(i).equals(animals.get(j))) {
+                    String animalType = animals.get(i).getType();
+                    if (!duplicateAnimalMap.containsKey(animalType)) {
+                        duplicateAnimalMap.put(animalType, 1);
+                    } else {
+                        int newValue = duplicateAnimalMap.get(animalType) + 1;
+                        duplicateAnimalMap.put(animalType, newValue);
+                    }
                 }
             }
         }
-        return duplicateAnimal;
+        return duplicateAnimalMap;
     }
 
     @Override
     public void printDuplicate() {
         System.out.println("\nAnimal Duplicates:\n");
-        for (Animal animal : findDuplicate()) {
-            System.out.println(animal);
-        }
+        findDuplicate().forEach((k,v) -> System.out.println(k + " = " + v));
     }
 
-    public Animal[] getAnimals() {
-        return animals;
+    public List<Animal> getAnimals() {
+        return new ArrayList<>(animals);
     }
 }

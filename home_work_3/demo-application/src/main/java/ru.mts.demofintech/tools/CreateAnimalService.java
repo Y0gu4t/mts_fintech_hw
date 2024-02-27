@@ -2,9 +2,7 @@ package ru.mts.demofintech.tools;
 
 import ru.mts.demofintech.agents.Animal;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public interface CreateAnimalService {
     /**
@@ -15,19 +13,24 @@ public interface CreateAnimalService {
      *
      * @author y0gu4t
      */
-    default Animal[] createUniqueAnimals() {
-        Animal[] animals = new Animal[10];
+    default Map<String, List<Animal>> createUniqueAnimals() {
+        Map<String, List<Animal>> animalsMap = new HashMap<>();
         AnimalFactory animalFactory = new AnimalFactory();
-        List<String> animalTypeList = Arrays.asList("fox", "cat", "fish", "bear");
+        List<String> animalTypeList = Arrays.asList("Fox", "Cat", "Fish", "Bear");
+        for (String type:
+             animalTypeList) {
+            animalsMap.put(type, new ArrayList<>());
+        }
         Random random = new Random();
         int i = 0;
         while (i < 10) {
             String animalType = animalTypeList.get(random.nextInt(animalTypeList.size()));
-            animals[i] = animalFactory.createAnimal(animalType);
-            System.out.println(animals[i]);
+            Animal animal = animalFactory.createAnimal(animalType);
+            animalsMap.get("fish").add(animal);
+            System.out.println(animal);
             i++;
         }
-        return animals;
+        return animalsMap;
     }
 
     /**
@@ -49,5 +52,5 @@ public interface CreateAnimalService {
      * @param animalCount number of animals that will be created
      * @author y0gu4t
      */
-    Animal[] createUniqueAnimals(int animalCount);
+    Map<String, List<Animal>> createUniqueAnimals(int animalCount);
 }

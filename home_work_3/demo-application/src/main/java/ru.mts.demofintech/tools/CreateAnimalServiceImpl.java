@@ -3,9 +3,7 @@ package ru.mts.demofintech.tools;
 import ru.mts.demofintech.AnimalConfig;
 import ru.mts.demofintech.agents.Animal;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class CreateAnimalServiceImpl implements CreateAnimalService {
     private AnimalConfig animalConfig;
@@ -24,33 +22,43 @@ public class CreateAnimalServiceImpl implements CreateAnimalService {
     }
 
     @Override
-    public Animal[] createUniqueAnimals() {
-        Animal[] animals = new Animal[10];
+    public Map<String, List<Animal>> createUniqueAnimals() {
+        Map<String, List<Animal>> animalsMap = new HashMap<>();
         AnimalFactory animalFactory = new AnimalFactory(animalConfig);
-        List<String> animalTypeList = Arrays.asList("fox", "cat", "fish", "bear");
+        List<String> animalTypeList = Arrays.asList("Fox", "Cat", "Fish", "Bear");
+        for (String type:
+                animalTypeList) {
+            animalsMap.put(type, new ArrayList<>());
+        }
         Random random = new Random();
         int i = 0;
         do {
             String animalType = animalTypeList.get(random.nextInt(animalTypeList.size()));
-            animals[i] = animalFactory.createAnimal(animalType);
-            System.out.println(animals[i]);
+            Animal animal = animalFactory.createAnimal(animalType);
+            animalsMap.get(animalType).add(animal);
+            System.out.println(animal);
             i++;
         } while (i < 10);
-        return animals;
+        return animalsMap;
     }
 
     @Override
-    public Animal[] createUniqueAnimals(int animalCount) {
-        Animal[] animals = new Animal[animalCount];
+    public Map<String, List<Animal>> createUniqueAnimals(int animalCount) {
+        Map<String, List<Animal>> animalsMap = new HashMap<>();
         AnimalFactory animalFactory = new AnimalFactory(animalConfig);
-        List<String> animalTypeList = Arrays.asList("fox", "cat", "fish", "bear");
+        List<String> animalTypeList = Arrays.asList("Fox", "Cat", "Fish", "Bear");
+        for (String type:
+                animalTypeList) {
+            animalsMap.put(type, new ArrayList<>());
+        }
         Random random = new Random();
         for (int i = 0; i < animalCount; i++) {
             String animalType = animalTypeList.get(random.nextInt(animalTypeList.size()));
-            animals[i] = animalFactory.createAnimal(animalType);
-            System.out.println(animals[i]);
+            Animal animal = animalFactory.createAnimal(animalType);
+            animalsMap.get(animalType).add(animal);
+            System.out.println(animal);
         }
-        return animals;
+        return animalsMap;
     }
 
     public void defaultCreateUniqueAnimals() {

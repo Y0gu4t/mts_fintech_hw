@@ -10,6 +10,11 @@ public class Fox extends Predator {
     }
 
     @Override
+    public String getType() {
+        return "Fox";
+    }
+
+    @Override
     public String toString() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/MM/uuuu");
         return "Fox{" +

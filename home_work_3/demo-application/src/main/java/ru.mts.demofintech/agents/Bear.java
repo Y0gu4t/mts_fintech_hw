@@ -10,6 +10,11 @@ public class Bear extends Predator {
     }
 
     @Override
+    public String getType() {
+        return "Bear";
+    }
+
+    @Override
     public String toString() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/MM/uuuu");
         return "Bear{" +

@@ -10,6 +10,11 @@ public class Fish extends Pet {
     }
 
     @Override
+    public String getType() {
+        return "Fish";
+    }
+
+    @Override
     public String toString() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/MM/uuuu");
         return "Fish{" +

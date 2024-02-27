@@ -39,6 +39,9 @@ public abstract class AbstractAnimal implements Animal {
         return character;
     }
 
+    @Override
+    public String getType() { return "Animal";}
+
     public LocalDate getBirthDate() {
         return birthDate;
     }

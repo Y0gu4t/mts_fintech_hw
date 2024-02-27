@@ -44,4 +44,12 @@ public interface Animal {
      * @author y0gu4t
      */
     public LocalDate getBirthDate();
+
+    /**
+     * Returns the type of the animal.
+     *
+     * @return the type of the animal
+     * @author y0gu4t
+     */
+    public String getType();
 }

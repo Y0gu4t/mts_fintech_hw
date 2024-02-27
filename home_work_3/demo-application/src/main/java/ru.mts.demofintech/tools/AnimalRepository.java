@@ -2,7 +2,9 @@ package ru.mts.demofintech.tools;
 
 import ru.mts.demofintech.agents.Animal;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public interface AnimalRepository {
     /**
@@ -10,7 +12,7 @@ public interface AnimalRepository {
      *
      * @return names of animals
      */
-    String[] findLeapYearNames();
+    Map<String, LocalDate> findLeapYearNames();
 
     /**
      * The input is an array of animals and the number of years. The method returns an array of animals that are older than the given year.
@@ -18,14 +20,14 @@ public interface AnimalRepository {
      * @param years
      * @return animals
      */
-    Animal[] findOlderAnimal(int years);
+    Map<Animal, Integer> findOlderAnimal(int years);
 
     /**
      * An array of animals is presented at the entrance. The method returns duplicate animals.
      *
      * @return animals
      */
-    List<Animal> findDuplicate();
+    Map<String, Integer> findDuplicate();
 
     /**
      * An array of animals is presented at the entrance. The method print duplicate animals to console.
@@ -37,5 +39,5 @@ public interface AnimalRepository {
      *
      * @return animals;
      * */
-    Animal[] getAnimals();
+    List<Animal> getAnimals();
 }
