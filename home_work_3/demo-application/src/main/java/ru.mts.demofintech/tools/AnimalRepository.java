@@ -27,12 +27,29 @@ public interface AnimalRepository {
      *
      * @return animals
      */
-    Map<String, Integer> findDuplicate();
+    Map<String, List<Animal>> findDuplicate();
 
     /**
      * An array of animals is presented at the entrance. The method print duplicate animals to console.
      */
     void printDuplicate();
+
+    /**
+     * An array of animals is presented at the entrance. The method print average animals age to console.
+     * */
+    void findAverageAge();
+
+    /**
+     * An array of animals is presented at the entrance. The method returns a list of animals that are older than 5 years and
+     * more expensive than the average cost of animals. The list is sorted by date of birth ascending
+     * */
+    List<Animal> findOldAndExpensive();
+
+    /**
+     * An array of animals is presented at the entrance. The method returns a list of 3 animal names that cost the least.
+     * List sorted in reverse alphabetical order
+     * */
+    List<String> findMinConstAnimals();
 
     /**
      * The method returns an array of animals that was created via animalRepository
