@@ -5,10 +5,7 @@ import ru.mts.demofintech.agents.Animal;
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AnimalRepositoryImpl implements AnimalRepository {
     CreateAnimalService createAnimalService;
@@ -62,16 +59,15 @@ public class AnimalRepositoryImpl implements AnimalRepository {
     @Override
     public Map<String, Integer> findDuplicate() {
         Map<String, Integer> duplicateAnimalMap = new HashMap<>();
-        for (int i = 0; i < animals.size(); i++) {
-            for (int j = i + 1; j < animals.size(); j++) {
-                if (animals.get(i).equals(animals.get(j))) {
-                    String animalType = animals.get(i).getType();
-                    if (!duplicateAnimalMap.containsKey(animalType)) {
-                        duplicateAnimalMap.put(animalType, 1);
-                    } else {
-                        int newValue = duplicateAnimalMap.get(animalType) + 1;
-                        duplicateAnimalMap.put(animalType, newValue);
-                    }
+        Set<Animal> animalSet = new HashSet<>();
+        for (Animal animal: animals) {
+            if (!animalSet.add(animal)) {
+                String animalType = animal.getType();
+                if (!duplicateAnimalMap.containsKey(animalType)) {
+                    duplicateAnimalMap.put(animalType, 1);
+                } else {
+                    int newValue = duplicateAnimalMap.get(animalType) + 1;
+                    duplicateAnimalMap.put(animalType, newValue);
                 }
             }
         }

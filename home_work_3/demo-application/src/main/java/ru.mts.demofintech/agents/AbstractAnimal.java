@@ -64,4 +64,9 @@ public abstract class AbstractAnimal implements Animal {
                 Objects.equals(name, that.name) &&
                 Objects.equals(character, that.character);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(breed, name, character);
+    }
 }
