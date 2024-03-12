@@ -102,7 +102,7 @@ public class AnimalRepositoryImpl implements AnimalRepository {
                 .sorted(Comparator.comparing(Animal::getCost))
                 .limit(3)
                 .map(Animal::getName)
-                .sorted((name1, name2) -> -name1.compareTo(name2))
+                .sorted(Comparator.reverseOrder())
                 .collect(Collectors.toList());
     }
 
