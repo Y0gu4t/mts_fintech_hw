@@ -1,6 +1,8 @@
 package ru.mts.demofintech.tools;
 
 import ru.mts.demofintech.agents.Animal;
+import ru.mts.demofintech.exceptions.AnimalListOutOfBoundException;
+import ru.mts.demofintech.exceptions.WrongYearException;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
@@ -21,7 +23,7 @@ public class AnimalRepositoryImpl implements AnimalRepository {
     @PostConstruct
     public void createAnimals() {
         System.out.println();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 2; i++) {
             animals.add(createAnimalService.createUniqueAnimal());
         }
         System.out.println();
@@ -39,7 +41,10 @@ public class AnimalRepositoryImpl implements AnimalRepository {
     }
 
     @Override
-    public Map<Animal, Integer> findOlderAnimal(int years) {
+    public Map<Animal, Integer> findOlderAnimal(int years) throws WrongYearException {
+        if (years < 0) {
+            throw new WrongYearException("Negative age indicated");
+        }
         Map<Animal, Integer> olderAnimalMap = animals.stream()
                 .filter(animal -> LocalDate.now().minusYears(years).isAfter(animal.getBirthDate()))
                 .collect(Collectors.toMap(
@@ -97,10 +102,17 @@ public class AnimalRepositoryImpl implements AnimalRepository {
     }
 
     @Override
-    public List<String> findMinConstAnimals() {
+    public List<String> findMinConstAnimals() throws AnimalListOutOfBoundException {
+        int minConstAnimalsListSize = 3;
+        if (animals.size() < minConstAnimalsListSize) {
+            throw new AnimalListOutOfBoundException(
+                    String.format("List size is %d, expected array size greater than or equal to %d",
+                            animals.size(),
+                            minConstAnimalsListSize));
+        }
         return animals.stream()
                 .sorted(Comparator.comparing(Animal::getCost))
-                .limit(3)
+                .limit(minConstAnimalsListSize)
                 .map(Animal::getName)
                 .sorted(Comparator.reverseOrder())
                 .collect(Collectors.toList());
