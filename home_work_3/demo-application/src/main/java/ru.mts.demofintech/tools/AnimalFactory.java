@@ -6,8 +6,12 @@ import org.springframework.stereotype.Service;
 import ru.mts.demofintech.AnimalConfig;
 import ru.mts.demofintech.agents.*;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
@@ -22,6 +26,7 @@ public class AnimalFactory {
      * @author y0gu4t
      */
     private List<String> namesList;
+    private Path secretInformationPath;
 
     public AnimalFactory() {
     }
@@ -29,6 +34,7 @@ public class AnimalFactory {
     @Autowired
     public AnimalFactory(AnimalConfig animalConfig) {
         namesList = animalConfig.get("name");
+        secretInformationPath = Paths.get("demo-application/src/main/resources/secretStore/secretInformation.txt");
     }
 
 
@@ -41,15 +47,21 @@ public class AnimalFactory {
                 random.nextInt(12) + 1,
                 random.nextInt(28) + 1);
         BigDecimal cost = BigDecimal.valueOf(random.nextDouble()).setScale(2, RoundingMode.HALF_UP);
-        switch (type) {
-            case "Fox":
-                return new Fox(breed, name, cost, character, birthDate);
-            case "Cat":
-                return new Cat(breed, name, cost, character, birthDate);
-            case "Fish":
-                return new Fish(breed, name, cost, character, birthDate);
-            case "Bear":
-                return new Bear(breed, name, cost, character, birthDate);
+        try {
+            List<String> lines = Files.readAllLines(secretInformationPath);
+            String secretInformation = lines.get(random.nextInt(lines.size()));
+            switch (type) {
+                case "Fox":
+                    return new Fox(breed, name, cost, character, birthDate, secretInformation);
+                case "Cat":
+                    return new Cat(breed, name, cost, character, birthDate, secretInformation);
+                case "Fish":
+                    return new Fish(breed, name, cost, character, birthDate, secretInformation);
+                case "Bear":
+                    return new Bear(breed, name, cost, character, birthDate, secretInformation);
+            }
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
         }
         return null;
     }

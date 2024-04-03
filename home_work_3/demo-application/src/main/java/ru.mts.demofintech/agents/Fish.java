@@ -5,8 +5,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Fish extends Pet {
-    public Fish(String breed, String name, BigDecimal cost, String character, LocalDate birthDate) {
-        super(breed, name, cost, character, birthDate);
+    public Fish(String breed, String name, BigDecimal cost, String character, LocalDate birthDate, String secretInformation) {
+        super(breed, name, cost, character, birthDate, secretInformation);
     }
 
     @Override
@@ -23,6 +23,7 @@ public class Fish extends Pet {
                 ", cost=" + cost +
                 ", character='" + character + '\'' +
                 ", birthDate=" + birthDate.format(dateTimeFormatter) + '\'' +
+                ", secretInformation" + secretInformation + '\'' +
                 '}';
     }
 }
