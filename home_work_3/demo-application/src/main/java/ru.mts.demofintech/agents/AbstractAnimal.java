@@ -1,7 +1,7 @@
 package ru.mts.demofintech.agents;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Base64;
@@ -22,10 +22,6 @@ public abstract class AbstractAnimal implements Animal {
         this.character = character;
         this.birthDate = birthDate;
         this.secretInformation = secretInformation;
-    }
-
-    public AbstractAnimal() {
-
     }
 
     @Override
@@ -66,14 +62,14 @@ public abstract class AbstractAnimal implements Animal {
         this.secretInformation = secretInformation;
     }
 
-    @JsonGetter("secretInformation")
+    @Override
     public String encryptSecretInformation() {
         return Base64.getEncoder().encodeToString(secretInformation.getBytes());
     }
 
-    @JsonSetter("secretInformation")
-    public void decryptSecretInformation(String secretInformation) {
-        this.secretInformation = new String(Base64.getDecoder().decode(secretInformation));
+    @Override
+    public String decryptSecretInformation(String secretInformation) {
+        return new String(Base64.getDecoder().decode(secretInformation));
     }
 
     /**
@@ -93,5 +89,17 @@ public abstract class AbstractAnimal implements Animal {
         return Objects.equals(breed, that.breed) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(character, that.character);
+    }
+
+    @Override
+    @JsonValue
+    public String toJsonString() {
+        return "{type:" + getType() +
+                ", breed:" + breed +
+                ", name:" + name +
+                ", cost:" + cost +
+                ", character:" + character +
+                ", birthdate:" + birthDate +
+                ", secretInformation:" + encryptSecretInformation() + '}';
     }
 }

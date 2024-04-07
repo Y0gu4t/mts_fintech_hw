@@ -68,14 +68,12 @@ public class AnimalRepositoryImpl implements AnimalRepository {
                         animal -> Period.between(animal.getBirthDate(), LocalDate.now()).getYears()));
 
         if (olderAnimalMap.isEmpty()) {
-            return animals.stream()
+            olderAnimalMap = animals.stream()
                     .min(Comparator.comparing(Animal::getBirthDate))
                     .map(animal -> Map.of(animal, Period.between(animal.getBirthDate(), LocalDate.now()).getYears()))
                     .orElse(Collections.emptyMap());
         }
-
         writeMethodResultToJson("findOlderAnimal.json", olderAnimalMap);
-
         return olderAnimalMap;
     }
 
@@ -101,11 +99,10 @@ public class AnimalRepositoryImpl implements AnimalRepository {
 
     @Override
     public void findAverageAge() {
-        double result = animals.stream()
+        Double result = animals.stream()
                 .mapToInt(animal -> Period.between(animal.getBirthDate(), LocalDate.now()).getYears())
                 .average()
                 .orElseThrow(() -> new RuntimeException("Ошибка при подсчёте среднего возраста"));
-        System.out.printf("Average animal age: %.2f\n",result);
         writeMethodResultToJson("findAverageAge.json", result);
     }
 

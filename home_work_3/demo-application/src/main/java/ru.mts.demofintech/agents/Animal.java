@@ -1,13 +1,8 @@
 package ru.mts.demofintech.agents;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import ru.mts.demofintech.deserializer.AnimalDeserialize;
-
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@JsonDeserialize(keyUsing = AnimalDeserialize.class)
 public interface Animal {
 
     /**
@@ -71,4 +66,22 @@ public interface Animal {
      * @author y0gu4t
      * */
     public void setSecretInformation(String secretInformation);
+
+    /**
+     * encrypt the secret information about animal
+     * @author y0gu4t
+     * */
+    public String encryptSecretInformation();
+
+    /**
+     * decrypt the secret information about animal
+     * @param secretInformation the secret information about animal
+     * @author y0gu4t
+     * */
+    public String decryptSecretInformation(String secretInformation);
+
+    /**
+     * Converts the class to json
+     * */
+    public String toJsonString();
 }
