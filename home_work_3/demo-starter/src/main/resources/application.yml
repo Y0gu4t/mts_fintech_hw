@@ -3,3 +3,10 @@ application:
     name: Barsik, Layka, Baron, Druzhok, Vasya, Nemo
   path: "demo-application/src/main/resources/animals/logData.txt"
   results: "demo-application/src/main/resources/results"
+
+spring:
+  datasource:
+    url: 'jdbc:postgresql://localhost:5555/mts_fintech'
+    username: admin
+    password: admin
+    driver-class-name: 'org.postgresql.Driver'
