@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.url">jdbc:postgresql://localhost:5555/mts_fintech</property>
+    <property name="connection.driver_class">org.postgresql.Driver</property>
+    <property name="connection.username">admin</property>
+    <property name="connection.password">admin</property>
+    
+    <property name="show_sql">true</property>
+    
+    <property name="current_session_context_class">thread</property>
+
+    <!-- DB schema will be updated if needed -->
+    <property name="hibernate.hbm2ddl.auto">create-drop</property>
+
+    <property name="hibernate.dbcp.initialSize">5</property>
+    <property name="hibernate.dbcp.maxTotal">20</property>
+    <property name="hibernate.dbcp.maxIdle">10</property>
+    <property name="hibernate.dbcp.minIdle">5</property>
+    <property name="hibernate.dbcp.maxWaitMillis">-1</property>
+
+    <mapping class="ru.mts.demofintech.entity.Animal"/>
+    <mapping class="ru.mts.demofintech.entity.Breed"/>
+    <mapping class="ru.mts.demofintech.entity.AnimalType"/>
+    <mapping class="ru.mts.demofintech.entity.Habitat"/>
+    <mapping class="ru.mts.demofintech.entity.Provider"/>
+  </session-factory>
+</hibernate-configuration>

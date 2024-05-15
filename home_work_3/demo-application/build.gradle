@@ -21,10 +21,18 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-core:2.16.0'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.16.0'
     implementation 'org.postgresql:postgresql:42.6.1'
+    implementation 'org.hibernate.orm:hibernate-core:6.1.7.Final'
+    implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0'
+    implementation 'jakarta.transaction:jakarta.transaction-api:2.0.1'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0'
+    runtimeOnly 'org.glassfish.jaxb:jaxb-runtime:4.0.0'
+    implementation 'jakarta.activation:jakarta.activation-api:2.1.0'
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
     implementation project(path: ':demo-starter')
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

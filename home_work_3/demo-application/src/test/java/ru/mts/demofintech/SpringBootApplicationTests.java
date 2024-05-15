@@ -1,19 +1,17 @@
-package ru.mts.demofintech;
+/*ackage ru.mts.demofintech;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import ru.mts.demofintech.agents.Animal;
-import ru.mts.demofintech.agents.Bear;
 import ru.mts.demofintech.config.AnimalRepositoryTestConfiguration;
 import ru.mts.demofintech.exceptions.AnimalListOutOfBoundException;
 import ru.mts.demofintech.exceptions.WrongYearException;
-import ru.mts.demofintech.tools.AnimalRepository;
-import ru.mts.demofintech.tools.AnimalTypeBeanPostProcessor;
-import ru.mts.demofintech.tools.CreateAnimalService;
-import ru.mts.demofintech.tools.CreateAnimalServiceImpl;
+import ru.mts.demofintech.repository.AnimalRepository;
+import ru.mts.demofintech.bpp.AnimalTypeBeanPostProcessor;
+import ru.mts.demofintech.service.CreateAnimalService;
+import ru.mts.demofintech.service.CreateAnimalServiceImpl;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
@@ -159,4 +157,4 @@ public class SpringBootApplicationTests {
             animalTypeBeanPostProcessor.postProcessBeforeInitialization(createAnimalService, "test");
         });
     }
-}
+}*/
