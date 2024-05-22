@@ -6,12 +6,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.List;
 
-@ConfigurationProperties(prefix = "application.animal")
+@ConfigurationProperties(prefix = "application.provider")
 @Getter
 @Setter
-public class AnimalProperties {
+public class ProviderProperties {
     private List<String> nameList;
-    private List<String> typeList;
-    private List<String> isWildList;
-    private List<String> breedList;
+    private List<String> phoneList;
 }

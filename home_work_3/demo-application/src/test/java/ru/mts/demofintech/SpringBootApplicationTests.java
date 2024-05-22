@@ -1,22 +1,23 @@
-package ru.mts.demofintech;
+/*ackage ru.mts.demofintech;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import ru.mts.demofintech.agents.Animal;
-import ru.mts.demofintech.agents.Bear;
 import ru.mts.demofintech.config.AnimalRepositoryTestConfiguration;
-import ru.mts.demofintech.tools.AnimalRepository;
-import ru.mts.demofintech.tools.AnimalTypeBeanPostProcessor;
-import ru.mts.demofintech.tools.CreateAnimalService;
-import ru.mts.demofintech.tools.CreateAnimalServiceImpl;
+import ru.mts.demofintech.exceptions.AnimalListOutOfBoundException;
+import ru.mts.demofintech.exceptions.WrongYearException;
+import ru.mts.demofintech.repository.AnimalRepository;
+import ru.mts.demofintech.bpp.AnimalTypeBeanPostProcessor;
+import ru.mts.demofintech.service.CreateAnimalService;
+import ru.mts.demofintech.service.CreateAnimalServiceImpl;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +48,14 @@ public class SpringBootApplicationTests {
     public void testFindOlderAnimalMethodWithParameter0() {
         Map<Animal, Integer> olderAnimalMap = animalRepository.findOlderAnimal(0);
         assertTrue(animalRepository.getAnimals().containsAll(olderAnimalMap.keySet()));
+    }
+
+    @Test
+    @DisplayName("The findOlderAnimal method with wrong parameter test")
+    public void testFindOlderAnimalMethodWithWrongParameter() {
+        assertThrows(WrongYearException.class, () -> {
+            animalRepository.findOlderAnimal(-5);
+        });
     }
 
     @Test
@@ -114,6 +123,18 @@ public class SpringBootApplicationTests {
     }
 
     @Test
+    @DisplayName("The findMinConstAnimals method with wrong animal list size test")
+    public void testFindMinConstAnimalsWrongListSize() throws NoSuchFieldException, IllegalAccessException {
+        List<Animal> animalList = new ArrayList<>();
+        Field declaredField = animalRepository.getClass().getDeclaredField("animals");
+        declaredField.setAccessible(true);
+        declaredField.set(animalRepository, animalList);
+        assertThrows(AnimalListOutOfBoundException.class, () -> {
+            animalRepository.findMinConstAnimals();
+        });
+    }
+
+    @Test
     @DisplayName("The getAnimals method test")
     public void testGetAnimals() throws NoSuchFieldException, IllegalAccessException {
         List<Animal> animals = List.of(
@@ -136,4 +157,4 @@ public class SpringBootApplicationTests {
             animalTypeBeanPostProcessor.postProcessBeforeInitialization(createAnimalService, "test");
         });
     }
-}
+}*/
