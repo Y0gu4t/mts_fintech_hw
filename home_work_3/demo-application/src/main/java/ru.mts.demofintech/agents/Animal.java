@@ -52,4 +52,36 @@ public interface Animal {
      * @author y0gu4t
      */
     public String getType();
+
+    /**
+     * Returns the secret information about animal
+     * @return the secret information
+     * @author y0gu4t
+     * */
+    public String getSecretInformation();
+
+    /**
+     * Sets the secret information about animal
+     * @param secretInformation the secret information about animal
+     * @author y0gu4t
+     * */
+    public void setSecretInformation(String secretInformation);
+
+    /**
+     * encrypt the secret information about animal
+     * @author y0gu4t
+     * */
+    public String encryptSecretInformation();
+
+    /**
+     * decrypt the secret information about animal
+     * @param secretInformation the secret information about animal
+     * @author y0gu4t
+     * */
+    public String decryptSecretInformation(String secretInformation);
+
+    /**
+     * Converts the class to json
+     * */
+    public String toJsonString();
 }

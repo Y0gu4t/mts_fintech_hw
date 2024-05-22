@@ -2,6 +2,7 @@ package ru.mts.demofintech.tools;
 
 import ru.mts.demofintech.agents.Animal;
 
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public interface CreateAnimalService {
@@ -41,7 +42,7 @@ public interface CreateAnimalService {
      *
      * @author y0gu4t
      */
-    Animal createUniqueAnimal();
+    Animal createUniqueAnimal() throws FileNotFoundException;
 
     /**
      * Creates unique animals and prints created animal's information (breed, name, cost and character).
@@ -53,4 +54,12 @@ public interface CreateAnimalService {
      * @author y0gu4t
      */
     Map<String, List<Animal>> createUniqueAnimals(int animalCount);
+
+    /**
+     * Writes information about the animal (breed, name, price, date of birth) to
+     * the logData.txt file with a new line.
+     * @param animal animal to write in file
+     * @author y0gu4t
+     * */
+    void writeAnimalInfo(Animal animal);
 }

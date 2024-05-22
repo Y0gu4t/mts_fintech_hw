@@ -1,7 +1,10 @@
 package ru.mts.demofintech.agents;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.Objects;
 
 public abstract class AbstractAnimal implements Animal {
@@ -10,13 +13,15 @@ public abstract class AbstractAnimal implements Animal {
     protected BigDecimal cost;
     protected String character;
     protected LocalDate birthDate;
+    protected String secretInformation;
 
-    public AbstractAnimal(String breed, String name, BigDecimal cost, String character, LocalDate birthDate) {
+    public AbstractAnimal(String breed, String name, BigDecimal cost, String character, LocalDate birthDate, String secretInformation) {
         this.breed = breed;
         this.name = name;
         this.cost = cost;
         this.character = character;
         this.birthDate = birthDate;
+        this.secretInformation = secretInformation;
     }
 
     @Override
@@ -40,10 +45,31 @@ public abstract class AbstractAnimal implements Animal {
     }
 
     @Override
-    public String getType() { return "Animal";}
+    public String getType() {
+        return "Animal";
+    }
 
     public LocalDate getBirthDate() {
         return birthDate;
+    }
+
+    @Override
+    public String getSecretInformation() {
+        return secretInformation;
+    }
+
+    public void setSecretInformation(String secretInformation) {
+        this.secretInformation = secretInformation;
+    }
+
+    @Override
+    public String encryptSecretInformation() {
+        return Base64.getEncoder().encodeToString(secretInformation.getBytes());
+    }
+
+    @Override
+    public String decryptSecretInformation(String secretInformation) {
+        return new String(Base64.getDecoder().decode(secretInformation));
     }
 
     /**
@@ -63,5 +89,17 @@ public abstract class AbstractAnimal implements Animal {
         return Objects.equals(breed, that.breed) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(character, that.character);
+    }
+
+    @Override
+    @JsonValue
+    public String toJsonString() {
+        return "{type:" + getType() +
+                ", breed:" + breed +
+                ", name:" + name +
+                ", cost:" + cost +
+                ", character:" + character +
+                ", birthdate:" + birthDate +
+                ", secretInformation:" + encryptSecretInformation() + '}';
     }
 }

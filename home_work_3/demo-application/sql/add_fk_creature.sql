@@ -1,0 +1,1 @@
+alter table animals.creature add constraint type_id_pk foreign key (type_id) references animals.animal_type(id_type);

@@ -5,6 +5,7 @@ import ru.mts.demofintech.agents.Animal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public interface AnimalRepository {
     /**
@@ -57,4 +58,12 @@ public interface AnimalRepository {
      * @return animals;
      * */
     List<Animal> getAnimals();
+
+    /**
+     * Creates a file called fileName, if such a file has not yet been created,
+     * and writes the result of the method execution into it in Json format
+     * @param fileName file name to write the result
+     * @param object method's result
+     * */
+    void writeMethodResultToJson(String fileName, Object object);
 }
