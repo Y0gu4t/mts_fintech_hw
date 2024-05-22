@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.*;
 import ru.mts.demofintech.AnimalConfig;
@@ -15,11 +16,22 @@ import ru.mts.demofintech.deserializer.AnimalKeyDeserializer;
 import ru.mts.demofintech.serializer.AnimalKeySerializer;
 import ru.mts.demofintech.serializer.AnimalSerializer;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+
 @Configuration
 public class AnimalConfiguration {
+
+    @Value("${application.threadPoolSize}")
+    private int threadPoolSize;
     @Bean
     public AnimalRepository createAnimalRepository(CreateAnimalService createAnimalService, ObjectMapper objectMapper) {
         return new AnimalRepositoryImpl(createAnimalService, objectMapper);
+    }
+
+    @Bean
+    public ScheduledExecutorService executorService() {
+        return Executors.newScheduledThreadPool(threadPoolSize);
     }
 
     @Bean

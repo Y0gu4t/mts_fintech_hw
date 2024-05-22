@@ -30,14 +30,14 @@ public class AnimalScheduler {
     private ObjectMapper objectMapper;
 
     @Autowired
-    public AnimalScheduler(AnimalRepository animalRepository, ObjectMapper objectMapper) {
+    public AnimalScheduler(AnimalRepository animalRepository, ObjectMapper objectMapper, ScheduledExecutorService executorService) {
         this.animalRepository = animalRepository;
         this.objectMapper = objectMapper;
+        this.executorService = executorService;
     }
 
     @PostConstruct
     public void init() {
-        executorService = Executors.newScheduledThreadPool(2);
         Runnable printDuplicatesRunnable = () -> {
             System.out.println("\nThread (printDuplicates):");
             animalRepository.findDuplicate();

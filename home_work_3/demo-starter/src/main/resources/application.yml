@@ -3,6 +3,8 @@ application:
     name: Barsik, Layka, Baron, Druzhok, Vasya, Nemo
   path: "demo-application/src/main/resources/animals/logData.txt"
   results: "demo-application/src/main/resources/results"
+  threadPoolSize: 2
+
 
 spring:
   datasource:

@@ -3,6 +3,7 @@ package ru.mts.demofintech.tools;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import ru.mts.demofintech.agents.Animal;
+import ru.mts.demofintech.exception_handler.AnimalExceptionHandler;
 import ru.mts.demofintech.exceptions.AnimalListOutOfBoundException;
 import ru.mts.demofintech.exceptions.WrongYearException;
 
@@ -14,10 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
@@ -125,7 +123,7 @@ public class AnimalRepositoryImpl implements AnimalRepository {
     }
 
     @Override
-    public List<String> findMinConstAnimals() throws AnimalListOutOfBoundException {
+    public List<String> findMinConstAnimals() throws AnimalListOutOfBoundException{
         int minConstAnimalsListSize = 3;
         if (animals.size() < minConstAnimalsListSize) {
             throw new AnimalListOutOfBoundException(
