@@ -1,10 +1,10 @@
 package ru.mts.demofintech.entity;
 
 import com.fasterxml.jackson.annotation.JsonValue;
-import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -16,11 +16,12 @@ import java.util.Set;
 @AllArgsConstructor
 @EqualsAndHashCode(exclude = {"id", "habitats", "providers"})
 @Builder
-@Table(schema = "animals")
+@Table(schema = "animals", name = "animal")
 public class Animal {
     @Id
+    @Column(name = "id_animal")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private String name;
 
@@ -32,7 +33,7 @@ public class Animal {
     private LocalDate birthday;
 
     @ManyToOne
-    @JoinColumn(name = "animal_type_id")
+    @JoinColumn(name = "type_id")
     private AnimalType animalType;
 
     @ManyToOne
@@ -43,8 +44,8 @@ public class Animal {
     @JoinTable(
             schema = "animals",
             name = "animals_habitats",
-            joinColumns = @JoinColumn(name = "animal_id"),
-            inverseJoinColumns = @JoinColumn(name = "habitat_id")
+            joinColumns = @JoinColumn(name = "id_animal"),
+            inverseJoinColumns = @JoinColumn(name = "id_habitat")
     )
     private Set<Habitat> habitats = new HashSet<>();
 
@@ -52,8 +53,8 @@ public class Animal {
     @JoinTable(
             schema = "animals",
             name = "animals_providers",
-            joinColumns = @JoinColumn(name = "animal_id"),
-            inverseJoinColumns = @JoinColumn(name = "provider_id")
+            joinColumns = @JoinColumn(name = "id_animal"),
+            inverseJoinColumns = @JoinColumn(name = "id_provider")
     )
     private Set<Provider> providers = new HashSet<>();
 

@@ -2,7 +2,7 @@ package ru.mts.demofintech.entity;
 
 import lombok.*;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.util.Set;
 
@@ -16,6 +16,7 @@ import java.util.Set;
 @Table(schema = "animals")
 public class Habitat {
     @Id
+    @Column(name = "id_habitat")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 

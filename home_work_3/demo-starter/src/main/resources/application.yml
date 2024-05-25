@@ -16,4 +16,14 @@ spring:
     url: 'jdbc:postgresql://localhost:5555/mts_fintech'
     username: admin
     password: admin
-    driver-class-name: 'org.postgresql.Driver'
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    default-schema: animals
+    user: admin
+    password: admin
+    url: 'jdbc:postgresql://localhost:5555/mts_fintech'
+    baseline-on-migrate: true
+
