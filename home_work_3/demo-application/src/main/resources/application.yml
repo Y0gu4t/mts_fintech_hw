@@ -1,3 +1,6 @@
+server:
+  port: 8090
+
 application:
   animal:
     name: Barsik, Layka, Baron, Druzhok, Vasya, Nemo
@@ -16,6 +19,9 @@ spring:
     url: 'jdbc:postgresql://localhost:5555/mts_fintech'
     username: admin
     password: admin
+    driver-class-name: org.postgresql.Driver
+  profiles:
+    active: example
   jpa:
     show-sql: true
     hibernate:

@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import ru.mts.demofintech.entity.Animal;
 
 @Repository
-public interface AnimalRepository extends JpaRepository<Animal, Integer> {
+public interface AnimalRepository extends JpaRepository<Animal, Long> {
 }

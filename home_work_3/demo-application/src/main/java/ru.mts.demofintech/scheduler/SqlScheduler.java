@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
 public class SqlScheduler {
     private final AnimalRepository animalRepository;
 
-    @Scheduled(cron = "*/10 * * * * ?")
+    @Scheduled(cron = "0 */2 * * * ?")
     public void printAnimalsFromDatabase() {
         log.info(animalRepository.findAll().toString());
     }

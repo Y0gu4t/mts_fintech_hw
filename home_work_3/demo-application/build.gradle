@@ -20,6 +20,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE'
 
     implementation 'org.flywaydb:flyway-core'
 
@@ -31,6 +35,8 @@ dependencies {
     implementation project(path: ':demo-starter')
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'com.h2database:h2'
+    testImplementation 'org.junit.vintage:junit-vintage-engine'
 }
 
 

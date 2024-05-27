@@ -1,0 +1,36 @@
+<table>
+    <thead>
+    <title>Animals</title>
+    </thead>
+    <tbody>
+    <table border="4">
+        <thead>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Character</th>
+        <th>Cost</th>
+        <th>Birthday</th>
+        <th>Type</th>
+        <th>Breed</th>
+        </thead>
+        <tbody>
+        <tr th:each="animal : ${animalList}">
+            <th th:text="${animal.id}"></th>
+            <th th:text="${animal.name}"></th>
+            <th th:text="${animal.character}"></th>
+            <th th:text="${animal.cost}"></th>
+            <th th:text="${#temporals.format(animal.birthday, 'yyyy-MM-dd')}">No date found</th>
+            <th th:text="${animal.animalType}"></th>
+            <th th:text="${animal.breed}"></th>
+            <th><form th:object="${animal}" th:action="@{/animals/delete/{id}(id=${animal.id})}" th:method="delete">
+                <input type="submit" name="action" value="delete">
+            </form></th>
+        </tr>
+        </tbody>
+    </table>
+    </tbody>
+</table>
+
+<form th:action="@{animals/add}" th:method="get">
+    <input type="submit" name="action" value="Add new Animal">
+</form>
