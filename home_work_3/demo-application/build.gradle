@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.7.4'
     id 'io.spring.dependency-management' version '1.1.4'
+    id 'org.flywaydb.flyway' version '9.22.3'
 }
 
 group = 'ru.mts'
@@ -17,23 +18,32 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.0'
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.16.0'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.16.0'
-    implementation 'org.postgresql:postgresql:42.6.1'
-    implementation 'org.hibernate.orm:hibernate-core:6.1.7.Final'
-    implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0'
-    implementation 'jakarta.transaction:jakarta.transaction-api:2.0.1'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0'
-    runtimeOnly 'org.glassfish.jaxb:jaxb-runtime:4.0.0'
-    implementation 'jakarta.activation:jakarta.activation-api:2.1.0'
+
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE'
+
+    implementation 'org.flywaydb:flyway-core'
+
+    implementation 'org.postgresql:postgresql:42.7.3'
+
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
 
     implementation project(path: ':demo-starter')
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'com.h2database:h2'
+    testImplementation 'org.junit.vintage:junit-vintage-engine'
+}
+
+
+flyway {
+    url = 'jdbc:postgresql://localhost:5555/mts_fintech'
+    user = 'admin'
+    password = 'admin'
 }
 
 tasks.named('test') {
