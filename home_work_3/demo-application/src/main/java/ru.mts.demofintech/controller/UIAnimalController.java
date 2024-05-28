@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.mts.demofintech.annotations.Logging;
 import ru.mts.demofintech.dto.AnimalDTO;
 import ru.mts.demofintech.entity.Animal;
 import ru.mts.demofintech.repository.AnimalRepository;
@@ -21,12 +22,14 @@ public class UIAnimalController {
     private final AnimalService animalService;
 
     @GetMapping
+    @Logging(entering = true, exiting = true)
     public String animalList(Model model) {
         model.addAttribute("animalList", animalRepository.findAll());
         return "animals";
     }
 
     @PostMapping("/delete/{id}")
+    @Logging(value = "DELETE animal by id", entering = true, level = "WARN", args = true)
     public String deleteAnimalById(@PathVariable("id") Long id, Model model) {
         animalRepository.deleteById(id);
         model.addAttribute("animalList", animalRepository.findAll());
@@ -34,6 +37,7 @@ public class UIAnimalController {
     }
 
     @GetMapping("/add")
+    @Logging(value = "Go to page \"Add animal\"", entering = true)
     public String addAnimal(Model model) {
         model.addAttribute("animalDTO", new AnimalDTO());
         model.addAttribute("animalTypes", animalTypeRepository.findAll());
@@ -42,13 +46,15 @@ public class UIAnimalController {
     }
 
     @PostMapping(value = "/add", params = "action=Add")
+    @Logging(exiting = true)
     public String submitAddAnimal(AnimalDTO animalDTO) {
         animalService.createAnimal(animalDTO);
         return "redirect:/animals";
     }
 
     @PostMapping(value = "/add", params = "action=Cancel")
-    public String cancelAddAnimal(Animal animal) {
+    @Logging(exiting = true)
+    public String cancelAddAnimal() {
         return "redirect:/animals";
     }
 }

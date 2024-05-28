@@ -47,7 +47,7 @@ public class Animal {
             joinColumns = @JoinColumn(name = "id_animal"),
             inverseJoinColumns = @JoinColumn(name = "id_habitat")
     )
-    private Set<Habitat> habitats = new HashSet<>();
+    private Set<Habitat> habitats;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -56,7 +56,7 @@ public class Animal {
             joinColumns = @JoinColumn(name = "id_animal"),
             inverseJoinColumns = @JoinColumn(name = "id_provider")
     )
-    private Set<Provider> providers = new HashSet<>();
+    private Set<Provider> providers;
 
     @JsonValue
     public String toJsonString() {
