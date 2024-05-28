@@ -2,7 +2,7 @@ package ru.mts.demofintech.entity;
 
 import lombok.*;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -14,6 +14,7 @@ import java.util.List;
 @Table(name = "animal_type", schema = "animals")
 public class AnimalType {
     @Id
+    @Column(name = "id_type")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
